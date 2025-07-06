@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const tokenRoutes = require("./routes/tokenRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Pour SOAP
 const fs = require("fs");
@@ -29,6 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/tokens", tokenRoutes);
+app.use("/api/users", userRoutes);
 
 // Creer le serveur HTTP et y monter SOAP
 const server = http.createServer(app);

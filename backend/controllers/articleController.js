@@ -4,13 +4,30 @@ const xml2js = require("xml2js");
 
 const ArticleController = {
   getAllArticles: (req, res) => {
-    const { page = 1, limit = 5 } = req.query;
+    const { page = 1, limit = 5, search = "", category_id } = req.query;
     const offset = (page - 1) * limit;
     const accept = req.headers["accept"];
 
-    const query = `SELECT * FROM articles ORDER BY created_at DESC LIMIT ? OFFSET ?`;
+    let sql = `SELECT * FROM articles WHERE 1=1`;
+    const params = [];
 
-    db.query(query, [parseInt(limit), parseInt(offset)], (err, data) => {
+    // 🔍 Filtre par mot-clé
+    if (search) {
+      sql += ` AND title LIKE ?`;
+      params.push(`%${search}%`);
+    }
+
+    // 🗂 Filtre par catégorie
+    if (category_id) {
+      sql += ` AND category_id = ?`;
+      params.push(category_id);
+    }
+
+    // 📑 Pagination
+    sql += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
+    params.push(parseInt(limit), parseInt(offset));
+
+    db.query(sql, params, (err, data) => {
       if (err) return res.status(500).json({ error: err.message });
 
       if (accept === "application/xml") {
