@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="UserService"
+  targetNamespace="http://example.com/userservice"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://example.com/userservice"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Authentification -->
+  <message name="authenticateRequest">
+    <part name="email" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="authenticateResponse">
+    <part name="id" type="xsd:int"/>
+    <part name="name" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+    <part name="role" type="xsd:string"/>
+    <part name="message" type="xsd:string"/>
+  </message>
+
+  <!-- Liste des utilisateurs -->
+  <message name="getUsersRequest">
+    <part name="token" type="xsd:string"/>
+  </message>
+  <message name="getUsersResponse">
+    <part name="users" type="xsd:string"/> <!-- JSON stringifié -->
+  </message>
+
+  <!-- Ajouter utilisateur -->
+  <message name="addUserRequest">
+    <part name="token" type="xsd:string"/>
+    <part name="name" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+    <part name="role" type="xsd:string"/>
+  </message>
+  <message name="addUserResponse">
+    <part name="message" type="xsd:string"/>
+  </message>
+
+  <!-- Modifier utilisateur -->
+  <message name="updateUserRequest">
+    <part name="token" type="xsd:string"/>
+    <part name="id" type="xsd:int"/>
+    <part name="name" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+    <part name="role" type="xsd:string"/>
+  </message>
+  <message name="updateUserResponse">
+    <part name="message" type="xsd:string"/>
+  </message>
+
+  <!-- Supprimer utilisateur -->
+  <message name="deleteUserRequest">
+    <part name="token" type="xsd:string"/>
+    <part name="id" type="xsd:int"/>
+  </message>
+  <message name="deleteUserResponse">
+    <part name="message" type="xsd:string"/>
+  </message>
+
+  <!-- PortType = liste des opérations -->
+  <portType name="UserServicePortType">
+    <operation name="authenticate">
+      <input message="tns:authenticateRequest"/>
+      <output message="tns:authenticateResponse"/>
+    </operation>
+    <operation name="getUsers">
+      <input message="tns:getUsersRequest"/>
+      <output message="tns:getUsersResponse"/>
+    </operation>
+    <operation name="addUser">
+      <input message="tns:addUserRequest"/>
+      <output message="tns:addUserResponse"/>
+    </operation>
+    <operation name="updateUser">
+      <input message="tns:updateUserRequest"/>
+      <output message="tns:updateUserResponse"/>
+    </operation>
+    <operation name="deleteUser">
+      <input message="tns:deleteUserRequest"/>
+      <output message="tns:deleteUserResponse"/>
+    </operation>
+  </portType>
+
+  <!-- Binding (RPC/encoded) -->
+  <binding name="UserServiceBinding" type="tns:UserServicePortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <operation name="authenticate">
+      <soap:operation soapAction="authenticate"/>
+      <input><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    
+    <operation name="getUsers">
+      <soap:operation soapAction="getUsers"/>
+      <input><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+
+    <operation name="addUser">
+      <soap:operation soapAction="addUser"/>
+      <input><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+
+    <operation name="updateUser">
+      <soap:operation soapAction="updateUser"/>
+      <input><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+
+    <operation name="deleteUser">
+      <soap:operation soapAction="deleteUser"/>
+      <input><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://example.com/userservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+  </binding>
+
+  <!-- Service -->
+  <service name="UserService">
+    <port name="UserServiceSoapPort" binding="tns:UserServiceBinding">
+      <soap:address location="http://localhost:5000/wsdl"/>
+    </port>
+  </service>
+</definitions>
