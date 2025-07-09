@@ -31,13 +31,40 @@ const service = {
               console.log(
                 "[SOAP] Callback avec succès : Authentification réussie"
               );
-              return callback(null, {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                message: "Authentification réussie",
-              });
+              // Cherche un token existant ou en crée un nouveau
+              db.query(
+                "SELECT * FROM tokens WHERE user_id = ?",
+                [user.id],
+                (err, tokenResults) => {
+                  if (tokenResults && tokenResults.length > 0) {
+                    // Token déjà existant
+                    const token = tokenResults[0].token;
+                    return callback(null, {
+                      token: token,
+                      role: user.role,
+                      message: "Authentification réussie",
+                    });
+                  } else {
+                    // Générer un nouveau token
+                    const crypto = require("crypto");
+                    const token = crypto.randomBytes(24).toString("hex");
+                    db.query(
+                      "INSERT INTO tokens (created_by, token) VALUES (?, ?)",
+                      [user.id, token],
+                      (err) => {
+                        if (err) {
+                          console.log("[SOAP] Erreur SQL INSERT token:", err.message);
+                        }
+                        return callback(null, {
+                          token: token,
+                          role: user.role,
+                          message: "Authentification réussie",
+                        });
+                      }
+                    );
+                  }
+                }
+              );
             });
           }
         );
@@ -48,18 +75,18 @@ const service = {
         verifyToken(token, (isValid) => {
           if (!isValid) {
             console.log("[SOAP] Callback avec erreur : Jeton invalide");
-            return callback({ message: "Jeton invalide" });
+            return callback(null, { users: JSON.stringify([{ erreur: "Jeton invalide" }]) });
           }
 
           db.query("SELECT id, name, email, role FROM users", (err, users) => {
             if (err) {
               console.log("[SOAP] Erreur SQL getUsers:", err.message);
               console.log("[SOAP] Callback avec erreur : Erreur SQL");
-              return callback({ message: err.message });
+              return callback(null, { users: JSON.stringify([{ erreur: err.message }]) });
             }
             console.log("[SOAP] Utilisateurs listés:", users.length);
             console.log("[SOAP] Callback avec succès : Utilisateurs listés");
-            callback(null, { users });
+            callback(null, { users: JSON.stringify(users) });
           });
         });
       },

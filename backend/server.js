@@ -15,6 +15,7 @@ const http = require("http");
 const soap = require("soap");
 const soapService = require("./soap/service");
 const wsdl = fs.readFileSync("./soap/userService.wsdl", "utf8");
+console.log("🧾 Longueur du WSDL :", wsdl.length);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
