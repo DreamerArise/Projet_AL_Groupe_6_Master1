@@ -6,7 +6,14 @@ const Article = {
   },
 
   getById: (id, callback) => {
-    db.query("SELECT * FROM articles WHERE id = ?", [id], callback);
+    db.query(
+      `SELECT a.*, u.name AS author
+      FROM articles a
+      LEFT JOIN users u ON a.user_id = u.id
+      WHERE a.id = ?`,
+      [id],
+      callback
+    );
   },
 
   getByCategory: (categoryId, callback) => {

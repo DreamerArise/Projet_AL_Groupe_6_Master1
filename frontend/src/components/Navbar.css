@@ -1,19 +1,33 @@
 .navbar {
-  background-color: #333;
-  padding: 12px 20px;
+  background: linear-gradient(90deg, #2196f3 0%, #21cbf3 100%);
+  padding: 14px 24px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  color: white;
+  gap: 18px;
+  color: #fff;
+  font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+  position: relative;
+  z-index: 10;
 }
 
 .navbar a {
-  color: white;
+  color: #fff;
   text-decoration: none;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  letter-spacing: 0.4px;
+  font-size: 1rem;
+  position: relative;
+}
+
+.navbar a:hover, .navbar a.active {
+  background: #fff;
+  color: #2196f3;
+  box-shadow: 0 2px 8px rgba(33, 203, 243, 0.12);
+  text-decoration: none;
 }
 
 .navbar a:hover {
@@ -21,16 +35,75 @@
 }
 
 .navbar button {
-  background-color: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
+  background: #fff;
+  border: none;
+  color: #2196f3;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-left: 8px;
+  box-shadow: 0 1px 4px rgba(33,150,243,0.08);
 }
 
 .navbar button:hover {
-  background-color: white;
-  color: #333;
+  background: #2196f3;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(33,203,243,0.12);
+}
+
+/* Hamburger menu styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: #fff;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 12px 10px;
+  }
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: linear-gradient(90deg, #2196f3 0%, #21cbf3 100%);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 99;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.10);
+  }
+  .navbar-links.open {
+    display: flex;
+  }
+  .navbar a, .navbar button {
+    width: 100%;
+    margin: 8px 0;
+    text-align: left;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .hamburger {
+    display: flex;
+  }
 }

@@ -2,7 +2,7 @@ import getpass
 import token
 from zeep import Client
 
-# Remplace cette URL par celle de ton service si besoin
+
 WSDL_URL = "http://localhost:5000/wsdl?wsdl"
 
 client = Client(WSDL_URL)
@@ -12,9 +12,9 @@ def authenticate():
     login = input("Login: ")
     password = getpass.getpass("Mot de passe: ")
     try:
-        # Appelle la bonne opération SOAP
+        
         response = client.service.authenticate(login, password)
-        # Adapte le parsing selon la réponse réelle
+       
         if hasattr(response, 'token') and hasattr(response, 'role'):
             print("Authentification réussie. Jeton:", response.token)
             return response.token, response.role
@@ -66,7 +66,7 @@ def add_user(token):
             password=password,
             role=role
         )
-        # Gérer le cas où le backend retourne une string ou un objet
+        
         if isinstance(result, dict) and 'message' in result:
             print(result['message'])
         elif isinstance(result, str):
@@ -126,14 +126,14 @@ def main():
 if __name__ == "__main__":
     main()
 try:
-    print("\n📋 Utilisateurs existants :")
+    print("\n Utilisateurs existants :")
     users = client.service.getUsers(token=token)
     print(users)
 except Exception as e:
-    print("❌ Erreur getUsers :", e)
+    print(" Erreur getUsers :", e)
 
 # Ajouter un utilisateur
-print("\n➕ Création d’un nouvel utilisateur...")
+print("\n Création d’un nouvel utilisateur...")
 try:
     res = client.service.addUser(
         token=token,
@@ -142,6 +142,6 @@ try:
         password="test123",
         role="editeur"
     )
-    print("✅ Utilisateur ajouté :", res)
+    print(" Utilisateur ajouté :", res)
 except Exception as e:
-    print("❌ Erreur addUser :", e)
+    print(" Erreur addUser :", e)

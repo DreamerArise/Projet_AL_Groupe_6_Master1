@@ -28,3 +28,6 @@ CREATE TABLE tokens (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (created_by) REFERENCES users(id)
 );
+
+
+ALTER TABLE articles ADD COLUMN user_id INT, ADD FOREIGN KEY (user_id) REFERENCES users(id);

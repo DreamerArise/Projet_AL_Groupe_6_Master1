@@ -6,11 +6,11 @@ Plateforme de gestion d'articles avec back-end REST + SOAP, front-end React, et 
 
 ## Technologies utilisées
 
-* **Backend** : Node.js + Express
-* **Base de données** : MySQL
-* **Front-end** : React.js
-* **SOAP** : node-soap + WSDL
-* **Client SOAP** : Python (Zeep) ou Java (wsimport)
+- **Backend** : Node.js + Express
+- **Base de données** : MySQL
+- **Front-end** : React.js
+- **SOAP** : node-soap + WSDL
+- **Client SOAP** : Python (Zeep) ou Java (wsimport)
 
 ---
 
@@ -18,35 +18,35 @@ Plateforme de gestion d'articles avec back-end REST + SOAP, front-end React, et 
 
 ### Authentification & rôles
 
-* Inscription avec rôle (visiteur / éditeur)
-* Connexion via JWT
-* Déconnexion / Gestion du token
-* Rôles :
+- Inscription avec rôle (visiteur / éditeur)
+- Connexion via JWT
+- Déconnexion / Gestion du token
+- Rôles :
 
-  * `visiteur` : lecture uniquement
-  * `editeur` : CRUD articles / catégories
-  * `admin` : gestion utilisateurs & jetons
+  - `visiteur` : lecture uniquement
+  - `editeur` : CRUD articles / catégories
+  - `admin` : gestion utilisateurs & jetons
 
 ### Gestion des articles (REST)
 
-* Création / modification / suppression d’articles (éditeur)
-* Consultation publique (visiteur / non connecté)
-* Pagination, recherche par mot-clé, filtrage par catégorie
+- Création / modification / suppression d’articles (éditeur)
+- Consultation publique (visiteur / non connecté)
+- Pagination, recherche par mot-clé, filtrage par catégorie
 
 ### Gestion des catégories
 
-* CRUD catégories par les éditeurs
+- CRUD catégories par les éditeurs
 
 ### Gestion des jetons (admin)
 
-* Génération / suppression de jetons via tableau de bord
-* Liste des jetons existants
+- Génération / suppression de jetons via tableau de bord
+- Liste des jetons existants
 
 ### Services SOAP
 
-* `authenticate(email, password)`
-* `getUsers(token)`
-* `addUser(token, name, email, password, role)`
+- `authenticate(email, password)`
+- `getUsers(token)`
+- `addUser(token, name, email, password, role)`
 
 ---
 
@@ -71,9 +71,9 @@ Plateforme de gestion d'articles avec back-end REST + SOAP, front-end React, et 
 
 ---
 
-##  Lancer le projet localement
+## Lancer le projet localement
 
-###  Backend
+### Backend
 
 ```bash
 execute le fichier database.sql dans un terminal sql ou phpMyAdmin
@@ -93,8 +93,8 @@ npm start
 
 ### Tester les services SOAP
 
-* URL du WSDL : `http://localhost:5000/wsdl`
-* Tester avec SoapUI, Zeep (Python) ou wsimport (Java)
+- URL du WSDL : `http://localhost:5000/wsdl`
+- Tester avec SoapUI, Zeep (Python) ou wsimport (Java)
 
 ---
 
@@ -102,12 +102,12 @@ npm start
 
 ```
 Admin :
-email : admin@example.com
+email : sokhna@example.com
 mot de passe : azerty123
 
 Éditeur :
-email : editeur@example.com
-mot de passe : editeur123
+email : mouride@example.com
+mot de passe : mouride123
 ```
 
 ---
@@ -120,7 +120,7 @@ from zeep import Client
 client = Client('http://localhost:5000/wsdl')
 
 # Authentification
-res = client.service.authenticate(email='admin@example.com', password='azerty123')
+res = client.service.authenticate(email='sokhna@example.com', password='azerty123')
 print(res)
 
 # getUsers
@@ -131,17 +131,16 @@ print(users)
 
 ---
 
-## 👥 Répartition des tâches
+## Répartition des tâches
 
 | Membre      | Rôle / Réalisations principales            |
 | ----------- | ------------------------------------------ |
 | **Sokhna**  | Backend (REST + SOAP), coordination projet |
 | **Ndella**  | Frontend React                             |
-| **Aïssata** | App cliente SOAP (Python / Java)           |
+| **Aïssata** | App cliente SOAP (Python)                  |
 
 ---
 
-##  Statut du projet : **Fonctionnel**
+## Statut du projet : **Fonctionnel**
 
 ---
-
