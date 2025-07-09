@@ -11,13 +11,13 @@ const ArticleController = {
     let sql = `SELECT * FROM articles WHERE 1=1`;
     const params = [];
 
-    // 🔍 Filtre par mot-clé
+    //Filtre par mot-clé
     if (search) {
       sql += ` AND title LIKE ?`;
       params.push(`%${search}%`);
     }
 
-    // 🗂 Filtre par catégorie
+    //Filtre par catégorie
     if (category_id) {
       sql += ` AND category_id = ?`;
       params.push(category_id);
@@ -90,7 +90,7 @@ const ArticleController = {
     db.query(query, (err, results) => {
       if (err) return res.status(500).json({ error: err.message });
 
-      // Transformer en structure groupée
+      
       const grouped = {};
       results.forEach((row) => {
         if (!grouped[row.libelle]) grouped[row.libelle] = [];

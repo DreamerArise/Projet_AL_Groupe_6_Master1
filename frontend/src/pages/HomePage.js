@@ -156,29 +156,34 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <section style={styles.hero}>
-        <h1 style={{ fontSize: 38, fontWeight: 800, marginBottom: 16 }}>Bienvenue sur le Centre d’Articles</h1>
+        <h1 style={{ fontSize: 38, fontWeight: 800, marginBottom: 16 }}>
+          Bienvenue sur le Centre d’Articles
+        </h1>
         <p style={{ fontSize: 20, color: "#e3f2fd", marginBottom: 28 }}>
-          Découvrez, recherchez et explorez les dernières actualités, tutoriels et ressources partagées par notre communauté.
+          Découvrez, recherchez et explorez les dernières actualités, tutoriels
+          et ressources partagées par notre communauté.
         </p>
-        <a href="#articles" style={{
-          display: "inline-block",
-          padding: "14px 38px",
-          borderRadius: 30,
-          background: "#fff",
-          color: "#2196f3",
-          fontWeight: 700,
-          fontSize: 18,
-          textDecoration: "none",
-          boxShadow: "0 2px 8px rgba(33,150,243,0.10)",
-          transition: "background 0.2s, color 0.2s"
-        }}>Commencer</a>
+        <a
+          href="#articles"
+          style={{
+            display: "inline-block",
+            padding: "14px 38px",
+            borderRadius: 30,
+            background: "#fff",
+            color: "#2196f3",
+            fontWeight: 700,
+            fontSize: 18,
+            textDecoration: "none",
+            boxShadow: "0 2px 8px rgba(33,150,243,0.10)",
+            transition: "background 0.2s, color 0.2s",
+          }}
+        >
+          Commencer
+        </a>
       </section>
 
-      {/* Main Content */}
       <main style={styles.container} id="articles">
-        {/* Barre de recherche et filtres */}
         <div style={styles.searchBar}>
           <input
             type="text"
@@ -199,12 +204,20 @@ const HomePage = () => {
               </option>
             ))}
           </select>
-          <button onClick={handleResetFilters} style={styles.resetBtn}>Réinitialiser</button>
+          <button onClick={handleResetFilters} style={styles.resetBtn}>
+            Réinitialiser
+          </button>
         </div>
 
-        {/* Liste des articles */}
         {articles.length === 0 ? (
-          <div style={{ textAlign: "center", margin: "64px 0", color: "#888", fontSize: 20 }}>
+          <div
+            style={{
+              textAlign: "center",
+              margin: "64px 0",
+              color: "#888",
+              fontSize: 20,
+            }}
+          >
             Aucun article trouvé.
           </div>
         ) : (
@@ -212,7 +225,10 @@ const HomePage = () => {
             {articles.map((article) => (
               <div key={article.id} style={styles.card}>
                 <h2 style={styles.cardTitle}>
-                  <Link to={`/article/${article.id}`} style={{ color: "#1976d2", textDecoration: "none" }}>
+                  <Link
+                    to={`/article/${article.id}`}
+                    style={{ color: "#1976d2", textDecoration: "none" }}
+                  >
                     {article.title}
                   </Link>
                 </h2>
@@ -230,20 +246,20 @@ const HomePage = () => {
           </div>
         )}
 
-        {/* Pagination */}
         <div style={styles.pagination}>
           <button
-            style={page === 1 ? { ...styles.pagBtn, ...styles.pagBtnDisabled } : styles.pagBtn}
+            style={
+              page === 1
+                ? { ...styles.pagBtn, ...styles.pagBtnDisabled }
+                : styles.pagBtn
+            }
             onClick={() => setPage((p) => Math.max(p - 1, 1))}
             disabled={page === 1}
           >
             Précédent
           </button>
           <span style={{ fontWeight: 700, fontSize: 18 }}>Page {page}</span>
-          <button
-            style={styles.pagBtn}
-            onClick={() => setPage((p) => p + 1)}
-          >
+          <button style={styles.pagBtn} onClick={() => setPage((p) => p + 1)}>
             Suivant
           </button>
         </div>

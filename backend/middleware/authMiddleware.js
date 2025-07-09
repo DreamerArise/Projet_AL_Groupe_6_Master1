@@ -10,8 +10,7 @@ const authenticate = (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, "SECRET_KEY"); // 🔒 à remplacer par process.env.SECRET_KEY
-    req.user = decoded;
+    const decoded = jwt.verify(token, "SECRET_KEY");
     next();
   } catch (err) {
     return res.status(403).json({ error: "Token invalide ou expiré" });

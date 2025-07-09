@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-// Utilitaire pour trouver le nom de l'auteur selon toutes les propriétés courantes
+
 function getAuthor(article) {
   if (!article) return "Auteur inconnu";
   if (article.author) return article.author;
@@ -35,7 +35,7 @@ const ArticlePage = () => {
     </div>
   );
 
-  // Pour la date lisible
+ 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const d = new Date(dateStr);

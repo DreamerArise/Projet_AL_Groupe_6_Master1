@@ -31,13 +31,12 @@ const service = {
               console.log(
                 "[SOAP] Callback avec succès : Authentification réussie"
               );
-              // Cherche un token existant ou en crée un nouveau
+
               db.query(
                 "SELECT * FROM tokens WHERE user_id = ?",
                 [user.id],
                 (err, tokenResults) => {
                   if (tokenResults && tokenResults.length > 0) {
-                    // Token déjà existant
                     const token = tokenResults[0].token;
                     return callback(null, {
                       token: token,
@@ -45,7 +44,6 @@ const service = {
                       message: "Authentification réussie",
                     });
                   } else {
-                    // Générer un nouveau token
                     const crypto = require("crypto");
                     const token = crypto.randomBytes(24).toString("hex");
                     db.query(
@@ -53,7 +51,10 @@ const service = {
                       [user.id, token],
                       (err) => {
                         if (err) {
-                          console.log("[SOAP] Erreur SQL INSERT token:", err.message);
+                          console.log(
+                            "[SOAP] Erreur SQL INSERT token:",
+                            err.message
+                          );
                         }
                         return callback(null, {
                           token: token,
@@ -75,14 +76,18 @@ const service = {
         verifyToken(token, (isValid) => {
           if (!isValid) {
             console.log("[SOAP] Callback avec erreur : Jeton invalide");
-            return callback(null, { users: JSON.stringify([{ erreur: "Jeton invalide" }]) });
+            return callback(null, {
+              users: JSON.stringify([{ erreur: "Jeton invalide" }]),
+            });
           }
 
           db.query("SELECT id, name, email, role FROM users", (err, users) => {
             if (err) {
               console.log("[SOAP] Erreur SQL getUsers:", err.message);
               console.log("[SOAP] Callback avec erreur : Erreur SQL");
-              return callback(null, { users: JSON.stringify([{ erreur: err.message }]) });
+              return callback(null, {
+                users: JSON.stringify([{ erreur: err.message }]),
+              });
             }
             console.log("[SOAP] Utilisateurs listés:", users.length);
             console.log("[SOAP] Callback avec succès : Utilisateurs listés");

@@ -112,7 +112,7 @@ mot de passe : mouride123
 
 ---
 
-## Exemple d’appel SOAP en Python (Zeep)
+## Appel SOAP en Python (Zeep)
 
 ```python
 from zeep import Client
@@ -127,6 +127,10 @@ print(res)
 token = 'VOTRE_JETON_ICI'
 users = client.service.getUsers(token)
 print(users)
+
+# Execution
+python client_app.py
+Entrer comme login sokhna@example.com et password azerty123
 ```
 
 ---

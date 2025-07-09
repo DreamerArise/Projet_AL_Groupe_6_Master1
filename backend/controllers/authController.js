@@ -35,11 +35,9 @@ const AuthController = {
         if (!isMatch)
           return res.status(401).json({ error: "Mot de passe incorrect" });
 
-        const token = jwt.sign(
-          { id: user.id, role: user.role },
-          "SECRET_KEY", // 🔒 À placer dans .env plus tard
-          { expiresIn: "2h" }
-        );
+        const token = jwt.sign({ id: user.id, role: user.role }, "SECRET_KEY", {
+          expiresIn: "2h",
+        });
 
         res.status(200).json({ message: "Connexion réussie", token });
       });

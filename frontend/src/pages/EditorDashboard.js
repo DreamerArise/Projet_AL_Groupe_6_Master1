@@ -87,7 +87,7 @@ const EditorDashboard = () => {
     setEditingId(article.id);
   };
 
-  // Styles dashboard (identiques Admin)
+  // Styles dashboard
   const dashboardStyles = {
     fontFamily: "Montserrat, Roboto, Arial, sans-serif",
     background: "#f5f8fb",
@@ -194,7 +194,9 @@ const EditorDashboard = () => {
 
       {/* Gestion des articles */}
       <section style={section}>
-        <h2 style={{ color: "#1976d2", fontWeight: 800, fontSize: 24 }}>Gestion des articles</h2>
+        <h2 style={{ color: "#1976d2", fontWeight: 800, fontSize: 24 }}>
+          Gestion des articles
+        </h2>
         <form onSubmit={handleSubmit} style={formStyle}>
           <input
             name="title"
@@ -236,10 +238,19 @@ const EditorDashboard = () => {
             {editingId ? "Modifier" : "Ajouter"} l’article
           </button>
           {editingId && (
-            <button type="button" style={btnCancel} onClick={() => {
-              setEditingId(null);
-              setForm({ title: "", description: "", content: "", category_id: 1 });
-            }}>
+            <button
+              type="button"
+              style={btnCancel}
+              onClick={() => {
+                setEditingId(null);
+                setForm({
+                  title: "",
+                  description: "",
+                  content: "",
+                  category_id: 1,
+                });
+              }}
+            >
               Annuler
             </button>
           )}
@@ -252,8 +263,12 @@ const EditorDashboard = () => {
                 <div style={cardDesc}>{a.description}</div>
               </div>
               <div style={cardActions}>
-                <button style={btnCancel} onClick={() => handleEdit(a)}>Éditer</button>
-                <button style={btn} onClick={() => handleDelete(a.id)}>Supprimer</button>
+                <button style={btnCancel} onClick={() => handleEdit(a)}>
+                  Éditer
+                </button>
+                <button style={btn} onClick={() => handleDelete(a.id)}>
+                  Supprimer
+                </button>
               </div>
             </li>
           ))}
@@ -262,7 +277,9 @@ const EditorDashboard = () => {
 
       {/* Gestion des catégories */}
       <section style={section}>
-        <h2 style={{ color: "#1976d2", fontWeight: 800, fontSize: 24 }}>Gestion des catégories</h2>
+        <h2 style={{ color: "#1976d2", fontWeight: 800, fontSize: 24 }}>
+          Gestion des catégories
+        </h2>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -293,7 +310,9 @@ const EditorDashboard = () => {
             name="libelle"
             placeholder="Nom de la catégorie"
             value={categoryForm.libelle}
-            onChange={e => setCategoryForm({ ...categoryForm, libelle: e.target.value })}
+            onChange={(e) =>
+              setCategoryForm({ ...categoryForm, libelle: e.target.value })
+            }
             required
             style={input}
           />
@@ -301,10 +320,14 @@ const EditorDashboard = () => {
             {editingCategoryId ? "Modifier" : "Ajouter"} la catégorie
           </button>
           {editingCategoryId && (
-            <button type="button" style={btnCancel} onClick={() => {
-              setEditingCategoryId(null);
-              setCategoryForm({ libelle: "" });
-            }}>
+            <button
+              type="button"
+              style={btnCancel}
+              onClick={() => {
+                setEditingCategoryId(null);
+                setCategoryForm({ libelle: "" });
+              }}
+            >
               Annuler
             </button>
           )}
@@ -314,22 +337,32 @@ const EditorDashboard = () => {
             <li key={cat.id} style={card}>
               <div style={cardTitle}>{cat.libelle}</div>
               <div style={cardActions}>
-                <button style={btnCancel} onClick={() => {
-                  setCategoryForm({ libelle: cat.libelle });
-                  setEditingCategoryId(cat.id);
-                }}>Éditer</button>
-                <button style={btn} onClick={async () => {
-                  try {
-                    await axios.delete(
-                      `http://localhost:5000/api/categories/${cat.id}`,
-                      config
-                    );
-                    fetchCategories();
-                    fetchArticles();
-                  } catch (err) {
-                    console.error("Erreur suppression catégorie");
-                  }
-                }}>Supprimer</button>
+                <button
+                  style={btnCancel}
+                  onClick={() => {
+                    setCategoryForm({ libelle: cat.libelle });
+                    setEditingCategoryId(cat.id);
+                  }}
+                >
+                  Éditer
+                </button>
+                <button
+                  style={btn}
+                  onClick={async () => {
+                    try {
+                      await axios.delete(
+                        `http://localhost:5000/api/categories/${cat.id}`,
+                        config
+                      );
+                      fetchCategories();
+                      fetchArticles();
+                    } catch (err) {
+                      console.error("Erreur suppression catégorie");
+                    }
+                  }}
+                >
+                  Supprimer
+                </button>
               </div>
             </li>
           ))}
