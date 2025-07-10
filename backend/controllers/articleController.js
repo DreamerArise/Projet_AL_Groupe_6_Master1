@@ -23,7 +23,7 @@ const ArticleController = {
       params.push(category_id);
     }
 
-    // 📑 Pagination
+    //  Pagination
     sql += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
     params.push(parseInt(limit), parseInt(offset));
 
